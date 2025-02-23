@@ -5,7 +5,12 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    if (numbers.length === 0) {
+        return [];
+    }
+    if (numbers.length === 1) {
+        return [numbers[0], numbers[0]];
+    } else return [numbers[0], numbers[numbers.length - 1]];
 }
 
 /**
@@ -13,7 +18,8 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    const tris = numbers.map((n: number): number => n * 3);
+    return tris;
 }
 
 /**
@@ -21,7 +27,8 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const stringtoNum = numbers.map((n: string): number => Number(n) || 0);
+    return stringtoNum;
 }
 
 /**
@@ -41,7 +48,11 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    return messages
+        .filter((message) => !message.endsWith("?"))
+        .map((message) =>
+            message.endsWith("!") ? message.toUpperCase() : message,
+        ); // will remove the messages that finish with "?"
 };
 
 /**
@@ -49,7 +60,7 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    return words.filter((word) => word.length < 4).length;
 }
 
 /**
@@ -58,7 +69,8 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    const colorss = ["green", "red", "blue"];
+    return colors.every((color) => colorss.includes(color));
 }
 
 /**
@@ -69,7 +81,11 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length === 0) {
+        return "0=0";
+    }
+    const total = addends.reduce((actual, n) => actual + n, 0);
+    return total + "=" + addends.join("+");
 }
 
 /**
