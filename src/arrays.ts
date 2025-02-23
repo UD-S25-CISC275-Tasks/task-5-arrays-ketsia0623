@@ -39,7 +39,11 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    return amounts.map((amount) => {
+        let numtostring = amount.startsWith("$") ? amount.slice(1) : amount;
+        let num = Number(numtostring);
+        return isNaN(num) ? 0 : Math.floor(num);
+    });
 };
 
 /**
@@ -98,5 +102,29 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    const indexOne = values.findIndex((n): boolean => n < 0);
+    const totalnonNegative = values.slice(
+        0,
+        indexOne >= 0 ? indexOne : undefined,
+    );
+    /*.reduce((actual, num) => actual + num, 0);*/
+
+    const total = totalnonNegative.reduce((acc, n): number => acc + n, 0);
+
+    if (indexOne === -1) {
+        // no negative numbers
+        //const sum = values.reduce((acc, num) => acc + num, 0);
+        return [...values, total];
+    }
+    /*
+    const totalnonNegative =
+        indexOne > 0 ?
+            values.slice(0, indexOne).reduce((acc, num) => acc + num, 0)
+        :   0;*/
+
+    return [
+        ...values.slice(0, indexOne + 1),
+        total,
+        ...values.slice(indexOne + 1),
+    ];
 }
